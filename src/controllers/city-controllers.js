@@ -19,6 +19,24 @@ const create=async(req, res)=>{
         })
     }
 }
+const multipleCities=async (req,res)=>{
+    try {
+        const cities=await cityService.createMultipleCities(req.body)
+        return res.status(201).json({
+            data:cities,
+            success:true,
+            message:"multiple cities created",
+            err:{}
+        })
+    } catch (error) {
+         return res.status(500).json({
+            data:{},
+            success:false,
+            message:'city not created successfully',
+            err:error
+         })
+    }
+}
 const destroy=async(req, res)=>{
     try {
         const response=await cityService.deleteCity(req.params.id);
@@ -55,6 +73,25 @@ const get=async(req, res)=>{
         })
     }
 }
+const allAirports=async (req,res)=>{
+    try {
+        const airports=await cityService.getCityAirports(req.params.id);
+        return res.status(200).json({
+            data:airports,
+            success:true,
+            message:"all airports of the cities are fetched",
+            err:{}
+    })
+    } catch (error) {
+        return res.status(500).json({
+            data:{},
+            success:false,
+            message:'airports not fetched successfully',
+            err:error
+        })
+    }
+    
+}
 const update=async(req, res)=>{
     try {
         const city=await cityService.updateCity(req.body,req.params.id);
@@ -78,5 +115,7 @@ module.exports={
     create,
     destroy,
     get,
-    update
+    update,
+    multipleCities,
+    allAirports
 };

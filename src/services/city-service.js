@@ -14,6 +14,17 @@ class cityService{
             throw{error};
         }
     }
+
+    async createMultipleCities(data){
+        try {
+            const cities=await this.CityService.createMultipleCities(data);
+            return cities
+        } catch (error) {
+            console.log('error at service layer');
+            throw{error};
+        }
+    }
+
     async deleteCity(cityId){
         try {
             const response=await this.CityService.deleteCity(cityId);
@@ -27,6 +38,15 @@ class cityService{
         try {
             const city=await this.CityService.getCity(cityId);
             return city;
+        } catch (error) {
+            console.log('error at service layer');
+            throw{error};
+        }
+    }
+    async getCityAirports(cityId){
+        try {
+            const airports=await this.CityService.getCityAirports(cityId);
+            return airports;
         } catch (error) {
             console.log('error at service layer');
             throw{error};

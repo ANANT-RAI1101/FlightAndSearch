@@ -4,8 +4,10 @@ const AirportController=require('../../controllers/airport-controller')
 const routeer=express.Router();
 
 routeer.post('/city',CityController.create);
+routeer.post('/cities',CityController.multipleCities);
 routeer.delete('/city/:id',CityController.destroy);
 routeer.get('/city/:id',CityController.get);
+routeer.get('/cityairports/:id',CityController.allAirports);
 routeer.patch('/city/:id',CityController.update);
 
 // for airports

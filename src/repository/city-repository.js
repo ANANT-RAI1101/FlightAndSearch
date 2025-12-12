@@ -1,10 +1,21 @@
 const { City } = require("../models/index")
+const { Airport } = require("../models/index");
 
 class cityRepository {
     async createCity({ name }) {
         try {
             const city = await City.create({ name });
             return city;
+        } catch (error) {
+            console.log("error at repository layer");
+            throw { error };
+        }
+    }
+
+    async createMultipleCities(data){
+        try {
+            const cities=await City.bulkCreate(data);
+            return cities;
         } catch (error) {
             console.log("error at repository layer");
             throw { error };
@@ -44,7 +55,21 @@ class cityRepository {
             const city=await City.findByPk(cityId);
             return city;
         } catch (error) {
-             console.log("error at repository layer");
+            console.log("error at repository layer");
+            throw { error };
+        }
+    }
+
+    async getCityAirports(cityId){
+        try {
+           const airports=await Airport.findAll({
+            where:{
+                cityId:cityId
+            }
+           });
+           return airports;
+        } catch (error) {
+            console.log("error at repository layer");
             throw { error };
         }
     }
