@@ -1,10 +1,5 @@
 const{airportService}=require('../services/index')
 
-// createAirport->name city id->/api/v1/airport/create
-// getAirport->cityId and airportId->/api/v1/city/:id/airport/:id
-// updateAirport->name cityid->/api/v1/city/:id/airport/:id
-// deleteAirport-> airportid cityid->/api/v1/city/:id/airport/:id
-
 const create= async (req,res)=>{
     try {
         const airport=await airportService.createAirport(req.body);
