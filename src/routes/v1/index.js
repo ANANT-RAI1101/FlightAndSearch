@@ -1,10 +1,17 @@
 const express=require('express')
 const CityController=require('../../controllers/city-controllers')
+const AirportController=require('../../controllers/airport-controller')
 const routeer=express.Router();
 
 routeer.post('/city',CityController.create);
 routeer.delete('/city/:id',CityController.destroy);
 routeer.get('/city/:id',CityController.get);
 routeer.patch('/city/:id',CityController.update);
+
+// for airports
+routeer.post('/airport',AirportController.create);
+routeer.delete('/city/:cityId/airport/:airportId',AirportController.destroy);
+routeer.get('/city/:cityId/airport/:airportId',AirportController.get);
+routeer.patch('/city/:cityId/airport/:airportId',AirportController.update);
 
 module.exports=routeer;
