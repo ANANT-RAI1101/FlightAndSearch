@@ -34,7 +34,7 @@
 
   ### City Table
   - this stores the data of the cities
-  - to create city model -> `` npx sequelize model:City --attribute name:String ``
+  - to create city model -> `` npx sequelize model:generate --name City --attributes name:String ``
   - do some changes in `migration` and in model `city.js` like `allowNull:false`
   - then ``npx sequelize db:migrate`` this creates table cities in the db
   - #### similarly we perform for other tables
