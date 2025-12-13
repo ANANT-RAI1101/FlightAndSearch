@@ -49,7 +49,7 @@ const getAll=async (req,res)=>{
 
     const get = async (req, res) => {
     try {
-        const response = await flightService.get(req.params.id);
+        const response = await flightService.getFlight(req.params.id);
         return res.status(200).json({
             data: response,
             success: true,

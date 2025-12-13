@@ -1,5 +1,6 @@
 const { Flight }=require('../models/index')
 const { Op } = require('sequelize');
+const CrudRepository = require('./crud-repository');
 
 class flightRepository extends CrudRepository {
     constructor() {
@@ -21,7 +22,7 @@ class flightRepository extends CrudRepository {
         if(data.maxPrice){
             priceFilter.push({price:{[Op.lte]:data.maxPrice},})
         }
-        Object.assign(filter,{[op.and]:priceFilter});
+        Object.assign(filter,{[Op.and]:priceFilter});
 
         return filter;
     }
