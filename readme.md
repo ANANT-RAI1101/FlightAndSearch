@@ -1,5 +1,12 @@
 # FlightAndSearch 
 
+
+## Overview
+FlightAndSearch is a backend service for managing cities, airports, airplanes,
+and flights. It provides REST APIs to create, update, and fetch flight-related
+data using Node.js, Express, Sequelize, and MySQL.
+
+
 ## Project setup
 
 - clone the project on your local
@@ -78,3 +85,42 @@ if(SYNC_DB){
   db.sequelize.sync({alter:true})
 }
 ```
+- similarly for other tables we will perform the steps
+
+`
+- ### API Endpoints (/api/v1)
+- #### City
+
+- POST `/api/v1/city` → Create city
+
+- POST `/api/v1/cities` → Create multiple cities
+
+- GET `/api/v1/cities` → Get all cities
+
+- GET `/api/v1/city/:id` → Get city by ID
+
+- PATCH `/api/v1/city/:id` → Update city
+
+- DELETE `/api/v1/city/:id` → Delete city
+
+- GET `/api/v1/cityairports/:id` → Get all airports of a city
+
+- #### Airport
+
+- POST `/api/v1/airport` → Create airport
+
+- GET `/api/v1/city/:cityId/airport/:airportId` → Get airport
+
+- PATCH `/api/v1/city/:cityId/airport/:airportId` → Update airport
+
+- DELETE `/api/v1/city/:cityId/airport/:airportId` → Delete airport
+
+- #### Flight
+
+- POST `/api/v1/flight` → Create flight
+
+- GET `/api/v1/flights` → Get all flights
+
+- GET `/api/v1/flights/:id` → Get flight by ID
+
+`
