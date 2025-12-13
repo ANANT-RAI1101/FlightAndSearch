@@ -1,64 +1,38 @@
 const{cityRepository}=require('../repository/index')
+const CrudService =require('./crud-service')
 
-class cityService{
-    constructor(){
-        this.CityService=new cityRepository();
-    }
-
-    async createCity(data){
-        try {
-            const city=await this.CityService.createCity(data);
-            return city;
-        } catch (error) {
-            console.log('error at service layer');
-            throw{error};
-        }
-    }
+class cityService extends CrudService{
+    constructor() {
+    super(new cityRepository());
+  }
 
     async createMultipleCities(data){
         try {
-            const cities=await this.CityService.createMultipleCities(data);
+            const cities=await this.repository.createMultipleCities(data);
             return cities
         } catch (error) {
             console.log('error at service layer');
-            throw{error};
+            throw error;
         }
     }
 
-    async deleteCity(cityId){
-        try {
-            const response=await this.CityService.deleteCity(cityId);
-            return response;
-        } catch (error) {
-            console.log('error at service layer');
-            throw{error};
-        }
-    }
-    async getCity(cityId){
-        try {
-            const city=await this.CityService.getCity(cityId);
-            return city;
-        } catch (error) {
-            console.log('error at service layer');
-            throw{error};
-        }
-    }
     async getCityAirports(cityId){
         try {
-            const airports=await this.CityService.getCityAirports(cityId);
+            const airports=await this.repository.getCityAirports(cityId);
             return airports;
         } catch (error) {
             console.log('error at service layer');
-            throw{error};
+            throw error;
         }
     }
-    async updateCity(data,cityId){
+
+    async getAllCity(filter){
         try {
-            const city=await this.CityService.updateCity(data,cityId);
-            return city;
+            const cities=await this.repository.getAllCity(filter);
+            return cities;
         } catch (error) {
             console.log('error at service layer');
-            throw{error};
+            throw error;
         }
     }
 }

@@ -1,18 +1,11 @@
 const { Airport } = require("../models/index");
+const CrudRepository = require('./crud-repository');
 
-class airportRepository{
-    async createAirport({name,cityId}){
-        try {
-            const airport=await Airport.create({
-                name,
-                cityId
-            });
-            return airport;   
-        } catch (error) {
-            console.log("error in repository layer");
-            throw error;
-        }
-    }
+
+class airportRepository extends CrudRepository {
+  constructor() {
+    super(Airport);
+  }
     async deleteAirport(airportId,cityId){
         try {
             const airport=await Airport.destroy({

@@ -1,79 +1,55 @@
 const { City } = require("../models/index")
 const { Airport } = require("../models/index");
+const { Op } = require('sequelize');
 
-class cityRepository {
-    async createCity({ name }) {
-        try {
-            const city = await City.create({ name });
-            return city;
-        } catch (error) {
-            console.log("error at repository layer");
-            throw { error };
-        }
+const CrudRepository = require('./crud-repository');
+
+class cityRepository extends CrudRepository {
+    constructor() {
+        super(City);
     }
 
-    async createMultipleCities(data){
+    async createMultipleCities(data) {
         try {
-            const cities=await City.bulkCreate(data);
+            const cities = await City.bulkCreate(data);
             return cities;
         } catch (error) {
             console.log("error at repository layer");
-            throw { error };
+            throw error ;
         }
     }
-
-    async deleteCity(cityId ) {
+    async getCityAirports(cityId) {
         try {
-            const city = await City.destroy({
+            const airports = await Airport.findAll({
                 where: {
-                    id: cityId
+                    cityId: cityId
                 }
             });
-            return city;
+            return airports;
         } catch (error) {
             console.log("error at repository layer");
-            throw { error };
+            throw error ;
         }
     }
-
-    async updateCity(data,cityId){
+    async getAllCity(filter) {
         try {
-            const city=await City.update(data,{
-            where:{
-                id:cityId
+            if (filter.name) {
+                const cities = await City.findAll({
+                    where: {
+                        name: {
+                            [Op.startsWith]: filter.name
+                        }
+                    }
+                });
+                return cities
             }
-        });
-        return city; 
+            const cities = await City.findAll();
+            return cities;
         } catch (error) {
             console.log("error at repository layer");
-            throw { error };
-        } 
-    }
-
-    async getCity(cityId){
-        try {
-            const city=await City.findByPk(cityId);
-            return city;
-        } catch (error) {
-            console.log("error at repository layer");
-            throw { error };
-        }
-    }
-
-    async getCityAirports(cityId){
-        try {
-           const airports=await Airport.findAll({
-            where:{
-                cityId:cityId
-            }
-           });
-           return airports;
-        } catch (error) {
-            console.log("error at repository layer");
-            throw { error };
+            throw error ;
         }
     }
 }
-
 
 module.exports = cityRepository;

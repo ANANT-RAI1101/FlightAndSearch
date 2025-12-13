@@ -1,23 +1,15 @@
 const{airportRepository}=require('../repository/index')
+const CrudService =require('./crud-service')
 
-class airportService{
+
+class airportService extends CrudService{
     constructor(){
-        this.AirportService=new airportRepository();
+       super(new airportRepository())
     }
 
-    async createAirport({name,cityId}){
-        try {
-            const airport= await this.AirportService.createAirport({name,cityId});
-            return airport;
-        } catch (error) {
-            console.log("error at service layer");
-            throw error;
-            
-        }
-    }
     async updateAirport(data,cityId,airportId){
         try {
-            const airport= await this.AirportService.updateAirport(data,cityId,airportId);
+            const airport= await this.repository.updateAirport(data,cityId,airportId);
             return airport;
         } catch (error) {
             console.log("error at service layer");
@@ -27,7 +19,7 @@ class airportService{
     }
     async getAirport(airportId,cityId){
         try {
-            const airport= await this.AirportService.getAirport(airportId,cityId);
+            const airport= await this.repository.getAirport(airportId,cityId);
             return airport;
         } catch (error) {
             console.log("error at service layer");
@@ -37,7 +29,7 @@ class airportService{
     }
     async deleteAirport(airportId,cityId){
         try {
-            const airport= await this.AirportService.deleteAirport(airportId,cityId);
+            const airport= await this.repository.deleteAirport(airportId,cityId);
             return airport;
         } catch (error) {
             console.log("error at service layer");

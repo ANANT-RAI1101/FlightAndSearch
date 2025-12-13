@@ -3,7 +3,7 @@ const{cityService}=require('../services/index')
 
 const create=async(req, res)=>{
     try {
-        const city=await cityService.createCity(req.body);
+        const city=await cityService.create(req.body);
         return res.status(201).json({
             data:city,
             success:true,
@@ -39,7 +39,7 @@ const multipleCities=async (req,res)=>{
 }
 const destroy=async(req, res)=>{
     try {
-        const response=await cityService.deleteCity(req.params.id);
+        const response=await cityService.delete(req.params.id);
         return res.status(200).json({
             data:response,
             success:true,
@@ -57,7 +57,7 @@ const destroy=async(req, res)=>{
 }
 const get=async(req, res)=>{
     try {
-        const city=await cityService.getCity(req.params.id);
+        const city=await cityService.get(req.params.id);
         return res.status(200).json({
             data:city,
             success:true,
@@ -94,7 +94,7 @@ const allAirports=async (req,res)=>{
 }
 const update=async(req, res)=>{
     try {
-        const city=await cityService.updateCity(req.body,req.params.id);
+        const city=await cityService.update(req.body,req.params.id);
         return res.status(200).json({
             data:city,
             success:true,
@@ -111,11 +111,32 @@ const update=async(req, res)=>{
     }
 }
 
+const getAll = async (req,res)=>{
+    try {
+        const cities=await cityService.getAllCity(req.query);
+        return res.status(200).json({
+            data: cities,
+            success: true,
+            message: 'Successfully fetched all cities',
+            err: {}
+        });
+        } catch (error) {
+            return res.status(500).json({
+            data: {},
+            success: false,
+            message: 'Not able to fetch the cities',
+            err: error
+        });
+        }
+    }
+
+
 module.exports={
     create,
     destroy,
     get,
     update,
     multipleCities,
-    allAirports
+    allAirports,
+    getAll
 };
