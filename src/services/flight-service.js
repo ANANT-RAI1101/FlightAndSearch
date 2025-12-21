@@ -1,10 +1,12 @@
 const{flightRepository}=require('../repository/index')
 const {airplaneRepository} = require('../repository/index')
+const CrudService =require('./crud-service')
 const { compareTime } = require('../utils/helper');
 
 
-class flightService{
+class flightService extends CrudService{
     constructor(){
+        super(new flightRepository());
         this.FlightService=new flightRepository();
         this.AirplaneRepository=new airplaneRepository();
     }

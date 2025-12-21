@@ -8,7 +8,7 @@ class CrudService{
             const result=await this.repository.create(data);
             return result;
         } catch (error) {
-            console.log("error at crud service layer");
+            console.log("error at crud service layer",error);
             throw error;
         }
     }
@@ -21,9 +21,9 @@ class CrudService{
             throw error;
         }
     }
-    async update(id){
+    async update(id,data){
         try {
-            const response=await this.repository.update(id);
+            const response=await this.repository.update(id,data);
             return response;
         } catch (error) {
             console.log("error at crud service layer");

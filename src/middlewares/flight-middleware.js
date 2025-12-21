@@ -1,13 +1,13 @@
-const { clidentSideCodes } = require('../utils/error-codes');
+const { clidentSideCodes } = require('../utils/service-error');
 
 const validateCreateFlight=(req,res,next)=>{
     if(
-        !req.body.flightNumber ||
+        !req.body.flight_number ||
         !req.body.airplaneId ||
-        !req.body.departureAirportId ||
-        !req.body.arrivalAirportId ||
-        !req.body.arrivalTime || 
-        !req.body.departureTime || 
+        !req.body.dest_airport_id ||
+        !req.body.src_airport_id ||
+        !req.body.arrival_date_time || 
+        !req.body.departure_date_time || 
         !req.body.price
     ){
         return res.status(clidentSideCodes.BAD_REQUEST).json({

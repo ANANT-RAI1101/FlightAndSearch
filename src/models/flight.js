@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
     airplaneId: {
       type:DataTypes.STRING,
       allowNull:false
+    },
+     totalSeats: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,

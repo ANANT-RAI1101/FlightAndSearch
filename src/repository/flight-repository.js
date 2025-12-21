@@ -1,6 +1,8 @@
 const { Flight }=require('../models/index')
 const { Op } = require('sequelize');
 const CrudRepository = require('./crud-repository');
+const ValidationError = require("../utils/validation-error")
+const AppError = require("../utils/App-error")
 
 class flightRepository extends CrudRepository {
     constructor() {
@@ -33,11 +35,24 @@ class flightRepository extends CrudRepository {
             const filterObject = this.#createFilter(filter);
             const flights=await Flight.findAll({
                 where: filterObject
-            })
+            });
+            if(flights.length===0){
+                throw new AppError(
+                    "Not Found",
+                    "Resource not found",
+                    "The requested record does not exist",
+                    StatusCodes.NOT_FOUND
+                );
+            }
             return flights;
         } catch (error) {
-            console.log("error at repository layer")
-            throw{error}
+            if (error instanceof AppError) throw error;
+            throw new AppError(
+                "Repository Error",
+                "cannot get what requested ",
+                "there is some error in getting the request . Please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            )
         }
 }
 }

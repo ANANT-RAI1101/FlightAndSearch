@@ -3,6 +3,9 @@ const { Airport } = require("../models/index");
 const { Op } = require('sequelize');
 
 const CrudRepository = require('./crud-repository');
+const AppError = require("../utils/App-error");
+const ValidationError = require("../utils/validation-error")
+
 
 class cityRepository extends CrudRepository {
     constructor() {
@@ -14,10 +17,18 @@ class cityRepository extends CrudRepository {
             const cities = await City.bulkCreate(data);
             return cities;
         } catch (error) {
-            console.log("error at repository layer");
-            throw error ;
+            if (error.name == "SequelizeValidationError") {
+                throw new ValidationError(error);
+            }
+            throw new AppError(
+                "Repository Error",
+                "cannot create what requested ",
+                "there is some error in creating the request . Please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            )
         }
     }
+
     async getCityAirports(cityId) {
         try {
             const airports = await Airport.findAll({
@@ -25,10 +36,23 @@ class cityRepository extends CrudRepository {
                     cityId: cityId
                 }
             });
+            if (airports.length===0) {
+                throw new AppError(
+                    "Not Found",
+                    "Resource not found",
+                    "The requested record does not exist",
+                    StatusCodes.NOT_FOUND
+                );
+            }
             return airports;
         } catch (error) {
-            console.log("error at repository layer");
-            throw error ;
+            if (error instanceof AppError) throw error;
+            throw new AppError(
+                "Repository Error",
+                "cannot get what requested ",
+                "there is some error in getting the request . Please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            )
         }
     }
     async getAllCity(filter) {
@@ -41,13 +65,34 @@ class cityRepository extends CrudRepository {
                         }
                     }
                 });
+                if (cities.length===0) {
+                    throw new AppError(
+                        "Not Found",
+                        "Resource not found",
+                        "The requested record does not exist",
+                        StatusCodes.NOT_FOUND
+                    );
+                }
                 return cities
             }
             const cities = await City.findAll();
+            if (cities.length===0) {
+                throw new AppError(
+                    "Not Found",
+                    "Resource not found",
+                    "The requested record does not exist",
+                    StatusCodes.NOT_FOUND
+                );
+            }
             return cities;
         } catch (error) {
-            console.log("error at repository layer");
-            throw error ;
+            if (error instanceof AppError) throw error;
+            throw new AppError(
+                "Repository Error",
+                "cannot get what requested ",
+                "there is some error in getting the request . Please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            )
         }
     }
 }

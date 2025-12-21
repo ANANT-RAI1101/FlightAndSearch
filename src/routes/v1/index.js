@@ -30,5 +30,6 @@ routeer.post(
 );
 routeer.get('/flights',FlightController.getAll);
 routeer.get('/flights/:id',FlightController.get);
+routeer.patch('/flight/:id',FlightController.updateFlight); 
 
-module.exports=routeer;
+module.exports=routeer; 

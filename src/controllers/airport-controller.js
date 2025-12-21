@@ -1,5 +1,5 @@
 const{airportService}=require('../services/index')
-const { successCodes } = require('../utils/error-codes');
+const { successCodes } = require('../utils/service-error');
 
 const create= async (req,res)=>{
     try {

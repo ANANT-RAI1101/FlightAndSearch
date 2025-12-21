@@ -79,7 +79,7 @@ npx sequelize seed:generate --name demo-airports
 ```
 - now sync with db to keeps DB schema updated with your models
 
-```
+`
 const {PORT,SYNC_DB}=require('./config/serverConfig');
 if(SYNC_DB){
   db.sequelize.sync({alter:true})
@@ -87,7 +87,7 @@ if(SYNC_DB){
 ```
 - similarly for other tables we will perform the steps
 
-`
+```
 - ### API Endpoints (/api/v1)
 - #### City
 
@@ -122,5 +122,6 @@ if(SYNC_DB){
 - GET `/api/v1/flights` → Get all flights
 
 - GET `/api/v1/flights/:id` → Get flight by ID
+
 
 `
