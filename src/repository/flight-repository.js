@@ -3,6 +3,8 @@ const { Op } = require('sequelize');
 const CrudRepository = require('./crud-repository');
 const ValidationError = require("../utils/validation-error")
 const AppError = require("../utils/App-error")
+const { StatusCodes } = require('http-status-codes')
+
 
 class flightRepository extends CrudRepository {
     constructor() {

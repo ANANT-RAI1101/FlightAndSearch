@@ -1,4 +1,5 @@
-const { clidentSideCodes } = require('../utils/service-error');
+const { StatusCodes } = require('http-status-codes')
+
 
 const validateCreateFlight=(req,res,next)=>{
     if(
@@ -10,7 +11,7 @@ const validateCreateFlight=(req,res,next)=>{
         !req.body.departure_date_time || 
         !req.body.price
     ){
-        return res.status(clidentSideCodes.BAD_REQUEST).json({
+        return res.status(StatusCodes.BAD_REQUEST).json({
             data: {},
             success: false,
             message: 'Invalid request body for create flight',
