@@ -1,11 +1,11 @@
 const { StatusCodes}=require('http-status-codes')
 
-class AppError extends error{
+class AppError extends Error{
     constructor(
         name,
         message,
         explanation,
-        statusCode
+        statusCode 
     ){
         this.name=name;
         this.message=message;
