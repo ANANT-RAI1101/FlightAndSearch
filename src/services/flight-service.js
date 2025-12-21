@@ -1,6 +1,8 @@
 const{flightRepository}=require('../repository/index')
 const {airplaneRepository} = require('../repository/index')
 const CrudService =require('./crud-service')
+const ServiceError=require("../utils/service-error")
+
 const { compareTime } = require('../utils/helper');
 
 
@@ -22,8 +24,12 @@ class flightService extends CrudService{
             });
             return flight;
         } catch (error) {
-            console.log("error at service layer");
-            throw{error};  
+            throw new ServiceError(
+                error.message,
+                error.explanation,
+                error.statusCode
+
+            )  
         }
     }
 
@@ -32,8 +38,12 @@ class flightService extends CrudService{
             const flight=await this.FlightService.get(airplaneId);
             return flight;
         } catch (error) {
-            console.log("error at service layer");
-            throw{error};   
+            throw new ServiceError(
+                error.message,
+                error.explanation,
+                error.statusCode
+
+            )   
         }
     }
 
@@ -42,8 +52,12 @@ class flightService extends CrudService{
             const flight=await this.FlightService.getAllFlights(filter);
             return flight;
         } catch (error) {
-            console.log("error at service layer");
-            throw{error};
+            throw new ServiceError(
+                error.message,
+                error.explanation,
+                error.statusCode
+
+            )
             
             
         }

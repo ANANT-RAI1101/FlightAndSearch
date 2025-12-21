@@ -1,3 +1,6 @@
+const AppError=require("../utils/App-error")
+const ServiceError=require("../utils/service-error")
+
 class CrudService{
     constructor(repository){
         this.repository=repository;
@@ -8,8 +11,14 @@ class CrudService{
             const result=await this.repository.create(data);
             return result;
         } catch (error) {
-            console.log("error at crud service layer",error);
-            throw error;
+            if(error.name=="SequelizeValidationError"||error.name=="Repository Error"){
+                throw error;
+            }
+            throw new ServiceError(
+                error.message,
+                error.explanation,
+                error.statusCode
+            )
         }
     }
     async get(id){
@@ -17,8 +26,11 @@ class CrudService{
             const result=await this.repository.get(id);
             return result;
         } catch (error) {
-            console.log("error at crud service layer");
-            throw error;
+            throw new ServiceError(
+                error.message,
+                error.explanation,
+                error.statusCode
+            )
         }
     }
     async update(id,data){
@@ -26,8 +38,11 @@ class CrudService{
             const response=await this.repository.update(id,data);
             return response;
         } catch (error) {
-            console.log("error at crud service layer");
-            throw error;
+            throw new ServiceError(
+                error.message,
+                error.explanation,
+                error.statusCode
+            )
         }
     }
     async delete(id){
@@ -35,8 +50,11 @@ class CrudService{
             const response=await this.repository.delete(id);
             return response;
         } catch (error) {
-            console.log("error at crud service layer");
-            throw error;
+            throw new ServiceError(
+                error.message,
+                error.explanation,
+                error.statusCode
+            )
         }
     }
 }
